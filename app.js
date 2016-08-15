@@ -13,6 +13,7 @@ var routes = require('./routes/index');
 var login = require('./routes/login');
 var user = require('./routes/user');
 var salary=require('./routes/salary');
+var admin = require('./routes/index');
 
 var app = express();
 
@@ -39,14 +40,15 @@ passport.use('local', new LocalStrategy(
         id: '1', 
           name:'宋钟基',
         username: 'xhety@163.com',
-        password: '111'
+          password: '111',
+          isAdmin: true,
       }; // 可以配置通过数据库方式读取登陆账号
 
       if (username !== user.username) {
-        return done(null, false, { message: 'Incorrect username.' });
+          return done(null, false, {message: '用户名不存在.'});
       }
       if (password !== user.password) {
-        return done(null, false, { message: 'Incorrect password.' });
+          return done(null, false, {message: '密码不正确.'});
       }
 
       return done(null, user);
@@ -64,10 +66,14 @@ passport.deserializeUser(function (user, done) {//删除user对象
 app.get('/', login);
 app.post('/login',
     passport.authenticate('local', {
-      successRedirect: '/salary',
+        successRedirect: '/user',
       failureRedirect: '/'
     }));
+app.all('/user', isLoggedIn);
 app.all('/salary', isLoggedIn);
+
+app.get('/user', user);
+app.get('/admin', admin);
 app.get('/salary', salary);
 app.get('/logout', function (req, res) {
   req.logout();
@@ -96,7 +102,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+      res.render('public/error', {
       message: err.message,
       error: err
     });
@@ -107,7 +113,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+    res.render('public/error', {
     message: err.message,
     error: {}
   });
