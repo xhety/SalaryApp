@@ -9,4 +9,6 @@ router.get('/', function(req, res, next) {
     res.render('login', {title: '人力资源管理系统登陆'});
 });
 
+
+
 module.exports = router;

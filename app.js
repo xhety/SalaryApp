@@ -10,10 +10,6 @@ LocalStrategy = require('passport-local').Strategy;
 
 
 var routes = require('./routes/index');
-var login = require('./routes/login');
-var user = require('./routes/user');
-var salary=require('./routes/salary');
-var admin = require('./routes/index');
 
 var app = express();
 
@@ -41,7 +37,7 @@ passport.use('local', new LocalStrategy(
           name:'宋钟基',
         username: 'xhety@163.com',
           password: '111',
-          isAdmin: true,
+          isAdmin: false
       }; // 可以配置通过数据库方式读取登陆账号
 
       if (username !== user.username) {
@@ -62,19 +58,15 @@ passport.serializeUser(function (user, done) {//保存user对象
 passport.deserializeUser(function (user, done) {//删除user对象
   done(null, user);//可以通过数据库方式操作
 });
+app.get('/', routes);
+app.all('/oa', isLoggedIn).get('/oa', routes);
 
-app.get('/', login);
 app.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/user',
-      failureRedirect: '/'
+     passport.authenticate('local', {
+         successRedirect: '/oa',
+     failureRedirect: '/'
     }));
-app.all('/user', isLoggedIn);
-app.all('/salary', isLoggedIn);
 
-app.get('/user', user);
-app.get('/admin', admin);
-app.get('/salary', salary);
 app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
