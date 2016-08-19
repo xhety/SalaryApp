@@ -4,7 +4,7 @@
 module.exports = {
     host     : 'localhost',
     user     : 'root',
-    password : 'xhety0502',
+    password : 'Super@1607',
     port: '3306',
-    database: 'nodejs'
+    database: 'tradesalarydb'
 };

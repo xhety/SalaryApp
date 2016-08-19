@@ -7,10 +7,8 @@ var bodyParser = require('body-parser');
 var session=require('express-session');
 var passport = require('passport');
 LocalStrategy = require('passport-local').Strategy;
-
-
+//var conn=require('./db');
 var routes = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -30,22 +28,61 @@ app.use(session({secret: 'blog.fens.me',resave: true, saveUninitialized: true, c
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+//mysql
+var mysql=require('mysql');
+var settings = require('./settings');
+
+var HOST=settings.host;
+var PORT=settings.port;
+var USER=settings.user;
+var DATABASE=settings.database;
+var PASSWORD=settings.password;
+
+var connection = mysql.createConnection({
+    host     :HOST,
+    user     : USER,
+    password : PASSWORD,
+    port: PORT,
+    database: DATABASE,
+});
+
+//------------------------------------------------------------
+
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
-      var user = {
-        id: '1', 
-          name:'宋钟基',
-        username: 'xhety@163.com',
-          password: '111',
-          isAdmin: false
-      }; // 可以配置通过数据库方式读取登陆账号
+      // var user = {
+      //   id: '1',
+      //     name:'宋钟基',
+      //     username: 'xhety@163.com',
+      //     password: '111',
+      //     isAdmin: false
+      // }; // 可以配置通过数据库方式读取登陆账号
+        var user;
+        var strSql ='select * from t_user where loginname=?';
+        // conn.connection.connect;
+        connection.query(strSql,[username],function(err,rows,fields){
+            if (err) {
+              console.log('[SELECT ERROR] -',err.message);
+            }
 
-      if (username !== user.username) {
-          return done(null, false, {message: '用户名不存在.'});
-      }
-      if (password !== user.password) {
-          return done(null, false, {message: '密码不正确.'});
-      }
+            if(rows==undefined ||  rows.length<0){
+                return done(null, false, {message: '用户名不存在.'});
+            }else{
+                if (password !== rows[0].Password) {
+                    return done(null, false, {message: '密码不正确.'});
+                }
+                user = {
+                    id: rows[0].Id,
+                    username:rows[0].UserName,
+                    loginname: rows[0].LoginName,
+                    password: rows[0].Password,
+                    isadmin: rows[0].IsAdmin
+                }
+
+
+            }
+        });
 
       return done(null, user);
     }

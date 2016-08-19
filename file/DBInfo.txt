@@ -1,0 +1,14 @@
+USE tradesalarydb;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `UserName` varchar(64) NOT NULL COMMENT '用户名',
+  `Email` varchar(64) NULL COMMENT '电子邮件',
+  `LoginName` varchar(64) NOT NULL COMMENT '用户登录名',
+  `Password` varchar(64) NOT NULL COMMENT '用户密码',
+  `IsAdmin` tinyint(1) NOT NULL COMMENT '是否管理员',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';

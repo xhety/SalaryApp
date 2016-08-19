@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
 });
 router.get('/oa', function (req, res) {
   console.log(req.user);
-  if (req.user.isAdmin) {
+  if (req.user.isadmin==1) {
     res.render('admin/index', {title: '人事信息管理'});
   } else {
     res.render('salary', {title: '工资信息查看'});
