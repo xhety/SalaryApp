@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session=require('express-session');
+var flash = require('express-flash');
 var passport = require('passport');
 LocalStrategy = require('passport-local').Strategy;
 //var conn=require('./db');
@@ -23,11 +24,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 //Passport验证
 app.use(session({secret: 'blog.fens.me',resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }}));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 
 //mysql
 var mysql=require('mysql');
@@ -51,40 +53,36 @@ var connection = mysql.createConnection({
 
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
-      // var user = {
-      //   id: '1',
-      //     name:'宋钟基',
-      //     username: 'xhety@163.com',
-      //     password: '111',
-      //     isAdmin: false
-      // }; // 可以配置通过数据库方式读取登陆账号
-        var user;
-        var strSql ='select * from t_user where loginname=?';
+        var strSql ='select * from t_user where username = ?';
+        var params=[username];
         // conn.connection.connect;
-        connection.query(strSql,[username],function(err,rows,fields){
+        connection.query(strSql,params,function(err,rows,fields){
             if (err) {
-              console.log('[SELECT ERROR] -',err.message);
+                console.log('[SELECT ERROR] -',err.message);
+                return done(null, false, {message:err.message});
             }
 
-            if(rows==undefined ||  rows.length<0){
+            if(rows==undefined ||  rows.length<1){
+
                 return done(null, false, {message: '用户名不存在.'});
             }else{
-                if (password !== rows[0].Password) {
+                if (password !== rows[0].password) {
+
                     return done(null, false, {message: '密码不正确.'});
                 }
-                user = {
-                    id: rows[0].Id,
-                    username:rows[0].UserName,
-                    loginname: rows[0].LoginName,
-                    password: rows[0].Password,
-                    isadmin: rows[0].IsAdmin
+              var  user = {
+                    id: rows[0].id,
+                    username:rows[0].username,
+                    name: rows[0].name,
+                    password: rows[0].password,
+                    isadmin: rows[0].isadmin
                 }
-
+                return done(null, user);
 
             }
         });
 
-      return done(null, user);
+
     }
 ));
 
@@ -98,10 +96,10 @@ passport.deserializeUser(function (user, done) {//删除user对象
 app.get('/', routes);
 app.all('/oa', isLoggedIn).get('/oa', routes);
 
-app.post('/login',
+app.all('/login',
      passport.authenticate('local', {
          successRedirect: '/oa',
-     failureRedirect: '/'
+         failureRedirect: '/'
     }));
 
 app.get('/logout', function (req, res) {

@@ -1,13 +1,27 @@
-<% include public/header.ejs %>
-<div class="container">
 
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<% include public/header.ejs %>
+
+<body>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <% if (user) { %>
+                <li>欢迎您,<a href="#">
+                        <%= user.username %>
+                    </a></li>
+                <li><a href="/logout">安全退出</a></li>
+                <% } %>
+
+            </ul>
+        </nav>
+    </div>
     <div class="page-header">
         <h1>个人工资信息查询</h1>
     </div>
-
-
-    <h3>欢迎使用工资查询系统</h3>
-    <p></p>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-lg-8">.col-xs-12 .col-sm-6 .col-lg-8</div>
         <div class="col-xs-6 col-lg-4">.col-xs-6 .col-lg-4</div>
@@ -19,8 +33,6 @@
     </div>
 
     <hr>
-
-</div> <!-- /container -->
-
+</div>
 <% include public/footer.ejs %>
 

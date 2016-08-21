@@ -2,9 +2,12 @@
  * Created by htxie on 2016/8/15.
  */
 function User(user) {
-    this.UserName = user.UserName;
-    this.LoginName = user.LoginName;
-    this.Password = user.Password;
-    this.IsAdmin=user.IsAdmin;
+    this.id=user.id;
+    this.name = user.name;
+    this.email=user.email;
+    this.username = user.username;
+    this.password = user.password;
+    this.isadmin=user.isadmin;
+
 };
 module.exports = User;

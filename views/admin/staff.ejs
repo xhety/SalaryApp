@@ -9,24 +9,18 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="#">首页</a></li>
-                <li role="presentation"><a href="admin/staff">人事信息管理</a></li>
-                <li role="presentation"><a href="admin/salary">工资信息管理</a></li>
-                    <% if (user) { %>
-                    <li><a href="#">
-                            <%= user.username %>
-                        </a></li>
-                    <li><a href="/logout">安全退出</a></li>
-                    <% } %>
+                <li role="presentation"><a href="/staff">人事信息管理</a></li>
+                <li role="presentation"><a href="/salary">工资信息管理</a></li>
+                <% if (user) { %>
+                <li><a href="#">
+                        <%= user.username %>
+                    </a></li>
+                <li><a href="/logout">安全退出</a></li>
+                <% } %>
 
             </ul>
         </nav>
-        <h3 class="text-muted">人力资源管理系统</h3>
     </div>
-
-    <div class="jumbotron">
-        <h1>欢迎使用人力资源管理系统</h1>
-    </div>
-
     <div class="row marketing">
         <div class="col-lg-6">
             <h4>Subheading</h4>
