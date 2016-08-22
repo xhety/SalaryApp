@@ -7,21 +7,64 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>人事工资管理系统</title>
 
     <!-- Bootstrap core CSS -->
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]>
-    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <div class="container">
+        <h3 class="text-muted">人力资源管理系统</h3>
+        <div class="header clearfix">
+
+            <nav>
+                <ul class="nav nav-pills pull-left">
+                    <li class="active">
+                        <a href="javascript:void(0)">主页</a>
+                    </li>
+                    <li>
+                        <a href="/admin/staff">人事管理</a>
+                    </li>
+                    <li>
+                        <a href="#">工资管理</a>
+                    </li>
+
+                </ul>
+                <ul class="nav nav-pills pull-right">
+                    <% if (user) { %>
+                    <li><a href="javascript:void(0)"> <%= user.UserName %></a></li>
+                    <li><a href="/logout">安全退出</a></li>
+                    <% } %>
+
+                    <li class="divider-vertical">
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">帮助</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">修改密码</a>
+                            </li>
+                            <li>
+                                <a href="#">编辑资料</a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="#">退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+
+    </div> <!-- /container -->
+<br />
 </head>

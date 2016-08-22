@@ -77,7 +77,7 @@ passport.use('local', new LocalStrategy(
                     LoginName: rows[0].LoginName,
                     Password: rows[0].Password,
                     IsAdmin: rows[0].IsAdmin
-                }
+                };
                 return done(null, user);
 
             }

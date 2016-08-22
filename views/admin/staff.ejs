@@ -5,42 +5,192 @@
 <body>
 <br />
 <div class="container">
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">首页</a></li>
-                <li role="presentation"><a href="/admin/staff">人事信息管理</a></li>
-                <li role="presentation"><a href="/salary">工资信息管理</a></li>
-                <% if (user) { %>
-                <li><a href="#">
-                        <%= user.UserName %>
-                    </a></li>
-                <li><a href="/logout">安全退出</a></li>
-                <% } %>
-
-            </ul>
-        </nav>
-    </div>
-    <div class="row marketing">
+     <form>
         <fieldset>
-            <div id="legend" class="">
-                <legend class="">表单名</legend>
-                <!-- Search input-->
-
-            </div>
+            <legend>人事信息查询</legend> <label>工号<input type="text" /></label> <label>姓名<input type="text" /></label> <label>账号<input type="text" /></label> <button type="submit" class="btn">查询</button>
         </fieldset>
-
-        <label class="control-label">姓名</label>
-        <div class="controls">
-            <input type="text" placeholder="placeholder" class="input-xlarge search-query">
-        </div>
-    </div>
-
-
+    </form>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                工号
+            </th>
+            <th>
+                姓名
+            </th>
+            <th>
+                性别
+            </th>
+            <th>
+                身份证
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                电话
+            </th>
+            <th>
+                入职时间
+            </th>
+            <th>
+                是否管理员
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                Default
+            </td>
+        </tr>
+        <tr class="success">
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                Default
+            </td>
+        </tr>
+        <tr class="error">
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                Default
+            </td>
+        </tr>
+        <tr class="warning">
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                Default
+            </td>
+        </tr>
+        <tr class="info">
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                TB - Monthly
+            </td>
+            <td>
+                01/04/2012
+            </td>
+            <td>
+                Default
+            </td>
+            <td>
+                Default
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div> <!-- /container -->
-
-
-<% include footer.ejs %>
-
 </body>
+<% include footer.ejs %>
 </html>
