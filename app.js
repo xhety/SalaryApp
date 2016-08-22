@@ -53,7 +53,7 @@ var connection = mysql.createConnection({
 
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
-        var strSql ='select * from t_user where username = ?';
+        var strSql ='select * from t_user where LoginName = ?';
         var params=[username];
         // conn.connection.connect;
         connection.query(strSql,params,function(err,rows,fields){
@@ -66,16 +66,16 @@ passport.use('local', new LocalStrategy(
 
                 return done(null, false, {message: '用户名不存在.'});
             }else{
-                if (password !== rows[0].password) {
+                if (password !== rows[0].Password) {
 
                     return done(null, false, {message: '密码不正确.'});
                 }
               var  user = {
-                    id: rows[0].id,
-                    username:rows[0].username,
-                    name: rows[0].name,
-                    password: rows[0].password,
-                    isadmin: rows[0].isadmin
+                    Id: rows[0].Id,
+                    UserName:rows[0].UserName,
+                    LoginName: rows[0].LoginName,
+                    Password: rows[0].Password,
+                    IsAdmin: rows[0].IsAdmin
                 }
                 return done(null, user);
 
