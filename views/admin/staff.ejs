@@ -9,7 +9,7 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="#">首页</a></li>
-                <li role="presentation"><a href="/staff">人事信息管理</a></li>
+                <li role="presentation"><a href="/admin/staff">人事信息管理</a></li>
                 <li role="presentation"><a href="/salary">工资信息管理</a></li>
                 <% if (user) { %>
                 <li><a href="#">
@@ -22,28 +22,17 @@
         </nav>
     </div>
     <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <fieldset>
+            <div id="legend" class="">
+                <legend class="">表单名</legend>
+                <!-- Search input-->
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
+            </div>
+        </fieldset>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <label class="control-label">姓名</label>
+        <div class="controls">
+            <input type="text" placeholder="placeholder" class="input-xlarge search-query">
         </div>
     </div>
 

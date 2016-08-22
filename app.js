@@ -9,7 +9,7 @@ var flash = require('express-flash');
 var passport = require('passport');
 LocalStrategy = require('passport-local').Strategy;
 //var conn=require('./db');
-var routes = require('./routes/index');
+var routes = require('./routes');
 var app = express();
 
 // view engine setup
@@ -30,6 +30,7 @@ app.use(session({secret: 'blog.fens.me',resave: true, saveUninitialized: true, c
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+routes(app);
 
 //mysql
 var mysql=require('mysql');
@@ -102,10 +103,7 @@ app.all('/login',
          failureRedirect: '/'
     }));
 
-app.get('/logout', function (req, res) {
-  req.logout();
-  res.redirect('/');
-});
+
 function isLoggedIn(req, res, next) {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
