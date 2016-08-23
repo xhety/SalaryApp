@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html">
 <% include header.ejs %>
 
 <body>
 <br />
 <div class="container">
-     <form>
-        <fieldset>
-            <legend>人事信息查询</legend> <label>工号<input type="text" /></label> <label>姓名<input type="text" /></label> <label>账号<input type="text" /></label> <button type="submit" class="btn">查询</button>
-        </fieldset>
+     <form class="form-search" post="admin/staffs">
+         <fieldset>
+             <legend>人事信息查询</legend>
+             <label for="txtCardId">工号</label><input type="text" id="txtCardId" class="input-small"/>
+             <label for="txtUserName">姓名</label><input type="text" id="txtUserName" class="input-small"/>
+             <label for="txtLoginName">账号</label><input type="text" id="txtLoginName" class="input-small"/>
+             <button type="submit" class="btn  btn-small btn-primary">查询</button>
+         </fieldset>
     </form>
+
+    <br />
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -73,93 +79,6 @@
             </td>
         </tr>
         <tr class="success">
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                Default
-            </td>
-        </tr>
-        <tr class="error">
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                Default
-            </td>
-        </tr>
-        <tr class="warning">
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                1
-            </td>
-            <td>
-                TB - Monthly
-            </td>
-            <td>
-                01/04/2012
-            </td>
-            <td>
-                Default
-            </td>
-            <td>
-                Default
-            </td>
-        </tr>
-        <tr class="info">
             <td>
                 1
             </td>

@@ -19,7 +19,6 @@ module.exports = function (app) {
   });
 
   app.get('/admin/staff', function (req, res) {
-    console.log("FUCK ME");
     if (req.user.IsAdmin==1) {
       res.render('admin/staff', {title: '人事信息管理',user:req.user});
     } else {
