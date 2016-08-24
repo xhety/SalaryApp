@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+var userDao=require('../daos/UserDao');
 
 module.exports = function (app) {
-
   /* GET home page. */
   app.get('/', function(req, res) {
     console.log("Access the index route root categary,and the login will return");
@@ -12,6 +11,7 @@ module.exports = function (app) {
   app.get('/oa', function (req, res) {
     console.log(req.user);
     if (req.user.IsAdmin==1) {
+
       res.render('admin/index', {title: '人事信息管理',user:req.user});
     } else {
       res.render('salary', {title: '工资信息查看',user:req.user});
@@ -19,9 +19,11 @@ module.exports = function (app) {
   });
 
   app.get('/admin/staff', function (req, res) {
-    console.log("FUCK ME");
     if (req.user.IsAdmin==1) {
-      res.render('admin/staff', {title: '人事信息管理',user:req.user});
+      //获取用户信息
+      var users=userDao.getUserList();
+      console.log(users);
+      res.render('admin/staff', {title: '人事信息管理',user:req.user,userList:users});
     } else {
       res.render('admin/index', {title: '工资信息查看',user:req.user});
     }

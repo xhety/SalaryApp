@@ -3,20 +3,7 @@
  */
 var mysql=require('mysql');
 var settings = require('./settings');
-
-var HOST=settings.host;
-var PORT=settings.port;
-var USER=settings.user;
-var DATABASE=settings.database;
-var PASSWORD=settings.password;
-
-var connection = mysql.createConnection({
-    host     :HOST,
-    user     : USER,
-    password : PASSWORD,
-    port: PORT,
-    database: DATABASE,
-});
+var connection = mysql.createConnection(settings);
 
 connection.connect(function(err) {
     if (err) {
