@@ -8,7 +8,7 @@ var session=require('express-session');
 var flash = require('express-flash');
 var passport = require('passport');
 LocalStrategy = require('passport-local').Strategy;
-//var conn=require('./db');
+var db=require('./db');
 var routes = require('./routes');
 var app = express();
 
@@ -26,38 +26,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Passport验证
-app.use(session({secret: 'blog.fens.me',resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }}));
+app.use(session({secret: 'www.xhety.com',resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 routes(app);
 
-//mysql
-var mysql=require('mysql');
-var settings = require('./settings');
-
-var HOST=settings.host;
-var PORT=settings.port;
-var USER=settings.user;
-var DATABASE=settings.database;
-var PASSWORD=settings.password;
-
-var connection = mysql.createConnection({
-    host     :HOST,
-    user     : USER,
-    password : PASSWORD,
-    port: PORT,
-    database: DATABASE,
-});
-
-//------------------------------------------------------------
 
 passport.use('local', new LocalStrategy(
     function (username, password, done) {
         var strSql ='select * from t_user where LoginName = ?';
         var params=[username];
-        // conn.connection.connect;
-        connection.query(strSql,params,function(err,rows,fields){
+        var conn= db.connection;
+        conn.query(strSql,params,function(err,rows,fields){
             if (err) {
                 console.log('[SELECT ERROR] -',err.message);
                 return done(null, false, {message:err.message});

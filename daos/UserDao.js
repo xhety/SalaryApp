@@ -1,41 +1,23 @@
 /**
  * Created by htxie on 2016/8/15.
  */
-var mysql=require('mysql');
-var User=require('/models/User');
-var settings = require('/settings');
-var DB_NAME="tradesalarydb";
-var HOST=settings.host;
-var PORT=settings.port;
-var USER=settings.user;
-var DATABASE=settings.database;
-var PASSWORD=settings.password;
-
-var connection = mysql.createPool({
-    host     :HOST,
-    user     : USER,
-    password : PASSWORD,
-    port: PORT,
-    database: DATABASE
-});
-
-pool.on('connection', function(connection) {
-    connection.query('SET SESSION auto_increment_increment=1');
-});
-
-pool.getConnection(function(err, connection) {
-
-    var useDbSql = "USE " + DB_NAME;
-    connection.query(useDbSql, function (err) {
+var db=require('../db');
+var User=require('../models/User');
+User.getUserList = function getUserList(callback) {
+    var conn= db.connection;
+    var strSql ='select * from t_user';
+    conn.query(strSql,function(err,rows,fields){
         if (err) {
-            console.log("USE Error: " + err.message);
-            return;
+            console.log('[SELECT ERROR] -',err.message);
+            return done(null, false, {message:err.message});
         }
-        console.log('USE succeed');
-    });
 
-    //保存数据
-    User.prototype.save = function save(callback) {
+        return rows;
+    });
+}
+
+//保存数据
+User.prototype.save = function save(callback) {
         var user = {
             name : this.name,
             email:this.email,
@@ -60,7 +42,7 @@ pool.getConnection(function(err, connection) {
     };
 
     //根据用户名得到用户数量
-    User.getUserNumByName = function getUserNumByName(username, callback) {
+User.getUserNumByName = function getUserNumByName(username, callback) {
 
         var getUserNumByName_Sql = "SELECT COUNT(1) AS num FROM t_user";
 
@@ -78,7 +60,7 @@ pool.getConnection(function(err, connection) {
     };
 
     //根据用户名得到用户信息
-    User.getUserByUserName = function getUserNumByName(username, callback) {
+User.getUserByUserName = function getUserNumByName(username, callback) {
 
         var getUserByUserName_Sql = "SELECT * FROM t_user WHERE username = ?";
 
@@ -95,4 +77,4 @@ pool.getConnection(function(err, connection) {
         });
     };
 
-});
+module.exports=exports=User;
