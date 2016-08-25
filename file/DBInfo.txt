@@ -12,7 +12,32 @@ CREATE TABLE `t_user` (
   `LoginName` varchar(64) NOT NULL COMMENT '用户登录名',
   `Password` varchar(64) NOT NULL COMMENT '用户密码',
   `IsAdmin` tinyint(1) NOT NULL COMMENT '是否管理员',
-  `BankName` varchar(64) NOT NULL COMMENT '工资卡所属银行名称',
+  `BankName` varchar(64) NOT NULL COMMENT '银行名称',
   `BankAccount` varchar(64) NOT NULL COMMENT '工资卡',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+
+
+CREATE TABLE `tradesalarydb`.`t_salary` (
+  `SalaryID` INT NOT NULL COMMENT '工资表ID',
+  `YearMoth` VARCHAR(6) NOT NULL COMMENT '工资年月',
+  `EmployeeID` INT(11) NOT NULL COMMENT '工号',
+  `BaseSalary` DECIMAL(8,2) NULL COMMENT '基本工资',
+  `AttendanceBonus` DECIMAL(8,2) NULL COMMENT '全勤奖金',
+  `Allowance` DECIMAL(8,2) NULL COMMENT '津贴',
+  `OrderRoyalty` DECIMAL(8,2) NULL COMMENT '操作票数奖金',
+  `QuarterlyBonus` DECIMAL(8,2) NULL COMMENT '季度奖金',
+  `MealAllowance` DECIMAL(6,2) NULL COMMENT '餐补',
+  `CommunicationAllowance` DECIMAL(6,2) NULL COMMENT '通信补贴',
+  `TravelAllowance` DECIMAL(6,2) NULL COMMENT '交通补贴',
+  `SocialSecurity` DECIMAL(8,2) NULL COMMENT '社保扣款',
+  `HousingFund` DECIMAL(8,2) NULL COMMENT '公积金',
+  `LeaveDeduct` DECIMAL(6,2) NULL COMMENT '请假扣款',
+  `JobPunish` DECIMAL(6,2) NULL COMMENT '工作失误扣款',
+  `NoAttendance` DECIMAL(6,2) NULL COMMENT '未出勤扣款',
+  `JobUnderTake` DECIMAL(6,2) NULL COMMENT '工作失误个人承担',
+  PRIMARY KEY (`SalaryID`),
+  UNIQUE INDEX `Index_YearMonth_EmployeeID` (`EmployeeID` ASC, `YearMoth` DESC)  COMMENT '员工月份唯一性标志',
+  INDEX `Index_EmployeeID` (`EmployeeID` ASC),
+  INDEX `Index_YearMonth` (`YearMoth` DESC))
+COMMENT = '工资信息表';
