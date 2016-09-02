@@ -13,7 +13,7 @@ CREATE TABLE `t_user` (
   `Password` varchar(64) NOT NULL COMMENT '用户密码',
   `IsAdmin` tinyint(1) NOT NULL COMMENT '是否管理员',
   `BankName` varchar(64) NOT NULL COMMENT '银行名称',
-  `BankAccount` varchar(64) NOT NULL COMMENT '工资卡',
+  `BankAccount` varchar(64) NOT NULL COMMENT '银行卡卡号',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 

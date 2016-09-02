@@ -2,20 +2,21 @@
  * Created by htxie on 2016/8/15.
  */
 var db=require('../db');
-var User=require('../models/User');
+var User=function(){};
 User.getUserList = function getUserList(callback) {
     var conn= db.connection;
     var strSql ='select * from t_user';
-    conn.query(strSql,function(err,rows,fields){
+    conn.query(strSql,function(err,result,fields){
         if (err) {
             console.log('[SELECT ERROR] -',err.message);
             return done(null, false, {message:err.message});
         }
 
-        return rows;
+        callback(err,result);
     });
 }
 
+/*
 //保存数据
 User.prototype.save = function save(callback) {
         var user = {
@@ -76,5 +77,5 @@ User.getUserByUserName = function getUserNumByName(username, callback) {
             callback(err,result);
         });
     };
-
+*/
 module.exports=exports=User;

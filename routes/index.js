@@ -1,31 +1,35 @@
 var express = require('express');
 var router = express.Router();
-var userDao=require('../daos/UserDao');
+var UserDao=require('../daos/UserDao');
 
 module.exports = function (app) {
   /* GET home page. */
-  app.get('/', function(req, res) {
-    console.log("Access the index route root categary,and the login will return");
-    res.render('login', { title: 'OA系统' });
+  app.get('/', function (req, res) {
+    res.render('login', {title: 'OA系统'});
   });
   app.get('/oa', function (req, res) {
     console.log(req.user);
-    if (req.user.IsAdmin==1) {
-
-      res.render('admin/index', {title: '人事信息管理',user:req.user});
+    if (req.user.IsAdmin == 1) {
+      res.render('admin/index', {title: '人事信息管理', user: req.user});
     } else {
-      res.render('salary', {title: '工资信息查看',user:req.user});
+      res.render('salary', {title: '工资信息查看', user: req.user});
     }
   });
 
+//admin/staff
   app.get('/admin/staff', function (req, res) {
-    if (req.user.IsAdmin==1) {
+    if (req.user.IsAdmin == 1) {
       //获取用户信息
-      // var users=userDao.getUserList();
-      // console.log(users);
-      res.render('admin/staff', {title: '人事信息管理',user:req.user,userList:userDao.getUserList()});
+      UserDao.getUserList(function(err,result){
+        if (err) {
+          console.log("getUserList_Sql Error: " + err.message);
+          return;
+        }
+        res.render('admin/staff', {title: '人事信息管理', user: req.user, userList: result});
+      });
+
     } else {
-      res.render('admin/index', {title: '工资信息查看',user:req.user});
+      res.render('admin/index', {title: '工资信息查看', user: req.user});
     }
   });
 
